@@ -24,10 +24,10 @@ export type { VCProfile } from "./types"; // ✅ re-export cleanly
  * Send a chat message to the backend chatbot
  */
 export const sendChatMessage = async (message: string): Promise<string> => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/qa`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ question: message }),  // <-- FIXED
   });
   if (!response.ok) throw new Error('Failed to get chat response');
   const data = await response.json();
