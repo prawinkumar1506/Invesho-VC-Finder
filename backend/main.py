@@ -179,7 +179,8 @@ def generate_response(user_message: str, context: str) -> str:
     if not Config.API_KEY:
         return "Sorry, the AI service is currently unavailable. Please try again later."
     try:
-        prompt = f"""You are a VC/QA assistant. Answer based on the provided context.
+        prompt = f"""
+You are a professional VC/QA assistant for Invesho. Answer ONLY questions related to venture capital firms, investment queries, startup funding, or Invesho-related topics.
 
 Context:
 {context}
@@ -187,11 +188,14 @@ Context:
 User Question: {user_message}
 
 Instructions:
-- Answer in a friendly, professional tone
-- Be concise but informative
-- If the question isn't directly answered in the context, provide a helpful response based on what you know
+- If the question is NOT related to venture capital, startup funding, investments, or Invesho, politely refuse and inform the user that you can only answer VC and Invesho-related queries.
+- Otherwise, answer in a friendly, professional tone.
+- Be concise but informative.
+- If the question isn't directly answered in the context, provide a helpful response based on what you know in the VC and Invesho domain only.
 
-Answer:"""
+Answer:
+"""
+
         headers = {
             "Authorization": f"Bearer {Config.API_KEY}",
             "Content-Type": "application/json"
